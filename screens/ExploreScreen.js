@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image  } from 'react-native'
 import React from 'react'
+import tw from 'tailwind-react-native-classnames';
+import NavOptions from '../components/NavOptions';
 
 const ExploreScreen = () => {
   return (
