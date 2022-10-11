@@ -15,7 +15,10 @@ const HomeScreen = () => {
                     require('../assets/logo.png')
                 }
             />
-
+            
+            <View style={[tw`bg-gray-100`,{top:-20, height: '80%'}]}>
+            <Text style={tw`p-2`}>This is the home screen...</Text>
+            </View>
             <NavOptions style={tw``}/>
         </View>
     </SafeAreaView>

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, SafeAreaView, Image  } from 'react-native'
 import React from 'react'
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
+import Map from '../components/Map';
 
 const ExploreScreen = () => {
   return (
@@ -16,8 +17,9 @@ const ExploreScreen = () => {
                     require('../assets/logo.png')
                 }
             />
+            <Map />
 
-        <NavOptions style={tw``}/>
+        <NavOptions style={[tw``,]}/>
       </View>
     </SafeAreaView>
   )
