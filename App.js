@@ -22,8 +22,6 @@ export default function App() {
       <NavigationContainer>
       <SafeAreaProvider>
 
-        {/* <HomeScreen/> */}
-
         <Stack.Navigator>
           <Stack.Screen
             name='HomeScreen'
