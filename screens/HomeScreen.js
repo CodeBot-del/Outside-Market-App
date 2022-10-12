@@ -1,4 +1,4 @@
-import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, Button } from 'react-native'
+import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, Button, TouchableOpacity } from 'react-native'
 import React from 'react'
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
@@ -12,10 +12,14 @@ const HomeScreen = () => {
     function create(){
         // Add a new document in collection "cities"
         db.collection("stores").add({
-            name: "Nakiette Pharmacy",
-            location: "Mwenge",
+            name: storeName,
+            location: location,
         })
         .then(() => {
+            alert('Store added successfully');
+            // set states to empty
+            setStoreName('');
+            setLocation('');
             console.log("Document successfully written!");
         })
         .catch((error) => {
@@ -37,10 +41,20 @@ const HomeScreen = () => {
                 }
             />
             
-            <View style={[tw`bg-gray-100`,{top:-20, height: '80%'}]}>
+            <View style={[tw`bg-white p-2`,{top:-20, height: '80%'}]}>
             <TextInput value={storeName} onChangeText={(storeName) => {setStoreName(storeName)}} placeholder='Enter store name' style={[styles.textBoxes, tw``]}></TextInput>
+            <Text></Text>
             <TextInput value={location} onChangeText={(location) => {setLocation(location)}} placeholder='Enter location' style={[styles.textBoxes, tw``]}></TextInput>
-            <Button title='Add' style={styles.btn} onClick={create}></Button>
+            <Text></Text>
+            {/* <Button title='Add' style={styles.btn} onClick={create}></Button> */}
+            <TouchableOpacity style={styles.btn} onPress={create}><Text style={tw`text-white font-semibold`}>Add</Text></TouchableOpacity>
+
+            <View>
+                <Text style={tw`text-center text-2xl font-semibold text-gray-700`}>Stores</Text>
+            </View>
+            <View style={[{width: '100%', height: '70%'}, tw`bg-gray-100`]}>
+
+            </View>
             
 
 
@@ -59,7 +73,8 @@ export default HomeScreen
 
 const styles = StyleSheet.create({
     text:{
-        color: "blue",
+        color: "white",
+        fontSize: 20,
     },
     textBoxes:{
         width: '100%',
@@ -70,7 +85,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     btn:{
-        width: 10,
+        width: 50,
+        height: 30,
         padding: 3,
+        backgroundColor: 'gray',
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
