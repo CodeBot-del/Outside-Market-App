@@ -50,7 +50,7 @@ const HomeScreen = () => {
             <TouchableOpacity style={styles.btn} onPress={create}><Text style={tw`text-white font-semibold`}>Add</Text></TouchableOpacity>
 
             <View>
-                <Text style={tw`text-center text-2xl font-semibold text-gray-700`}>Stores</Text>
+                <Text style={tw`text-center text-xl font-semibold text-gray-500`}>Pending Stores</Text>
             </View>
             <View style={[{width: '100%', height: '70%'}, tw`bg-gray-100`]}>
 
