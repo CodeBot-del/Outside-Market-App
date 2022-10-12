@@ -19,13 +19,13 @@ const ExploreScreen = () => {
                 }
             />
             
-            <View style={[tw`bg-gray-100`,{top:-20, height: '80%'}]}>
+            <View style={[tw`bg-white`,{top:-20, height: '80%'}]}>
               <WebView
-            style={{top:-20, 
+            style={{top:0, 
                     height: 600,
                     width: '100%'
                   }}
-            source={{ uri: 'https://www.google.com/maps/@-6.7871694,39.2479307,15z' }}
+            source={{ uri: 'https://www.google.com/maps/' }}
           />
           </View>
         <NavOptions style={[tw``,]}/>

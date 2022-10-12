@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 import ExploreScreen from './screens/ExploreScreen';
 import ListScreen from './screens/ListScreen';
-
+import "firebase/firestore";
 
 export default function App() {
 
