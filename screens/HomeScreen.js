@@ -42,6 +42,7 @@ const HomeScreen = () => {
             />
             
             <View style={[tw`bg-white p-2`,{top:-20, height: '80%'}]}>
+            <Text style={tw`font-semibold p-1`}>Add an unvisited store</Text>
             <TextInput value={storeName} onChangeText={(storeName) => {setStoreName(storeName)}} placeholder='Enter store name' style={[styles.textBoxes, tw``]}></TextInput>
             <Text></Text>
             <TextInput value={location} onChangeText={(location) => {setLocation(location)}} placeholder='Enter location' style={[styles.textBoxes, tw``]}></TextInput>
@@ -78,8 +79,8 @@ const styles = StyleSheet.create({
     },
     textBoxes:{
         width: '100%',
-        fontSize: 18,
-        padding: 12,
+        fontSize: 16,
+        padding: 10,
         borderColor: 'gray',
         borderWidth: 0.2,
         borderRadius: 10,
