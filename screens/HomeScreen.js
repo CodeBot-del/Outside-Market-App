@@ -1,4 +1,4 @@
-import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, Button, TouchableOpacity, FlatList } from 'react-native'
+import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, Button, TouchableOpacity, FlatList, Alert  } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
@@ -20,6 +20,7 @@ const HomeScreen = () => {
                 querySnapshot.forEach((doc) => {
                     const {name, location} = doc.data();
                     shops.push({
+                        id: doc.id,
                         name,
                         location,
                     })
@@ -33,50 +34,50 @@ const HomeScreen = () => {
 
     function create(){
         // Add a new document in collection "cities"
-        db.collection("stores").add({
-            name: storeName,
-            location: location,
-        })
-        .then(() => {
-            alert('Store added successfully');
-            // set states to empty
-            setStoreName('');
-            setLocation('');
-            console.log("Document successfully written!");
-        })
-        .catch((error) => {
-            alert(error);
-            setStoreName('');
-            setLocation('');
-            console.error("Error writing document: ", error);
-        });
+        // check if the field are empty
+        if(storeName === '' || location === ''){
+            alert('Please fill in all the fields')
+        }else{
+            db.collection("stores").add({
+                name: storeName,
+                location: location,
+            })
+            .then(() => {
+                alert('Store added successfully');
+                // set states to empty
+                setStoreName('');
+                setLocation('');
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                alert(error);
+                setStoreName('');
+                setLocation('');
+                console.error("Error writing document: ", error);
+            });
+        }
+        
 
 
     }
-
-    // async function read(){
-    //     await db.collection("stores").get().then((querySnapshot) =>{
-    //         let shops = [];
-    //         querySnapshot.forEach((doc) => {
-    //             // console.log(`${doc.id} => ${doc.data()}`);
-    //             var name = doc.data().name;
-    //             setName(name);
-    //             var loc = doc.data().location;
-    //             setLoc(loc);
-    //             console.log(`${name} => ${loc}`);
-    //         });
-    //     });
-    // }
-
-    // read();
-
-    db.collection("stores").get().then((querySnapshot) =>{
-        
-        querySnapshot.forEach((doc) => {
-            shops.push({...doc.data(), id: doc.id});
-        });
-        console.log("Stores: ",shops);
-    })
+    
+    const feedbackAlert = () =>
+        Alert.alert(
+        shop.name,
+        "Choose Feedback Recieved",
+        [
+            {
+            text: "Agreed",
+            onPress: () => console.log("Agreed pressed")
+            },
+            {
+            text: "Disagreed",
+            onPress: () => console.log("Disagreed Pressed"),
+            style: "cancel"
+            },
+            { text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" }
+        ]
+    );
 
 
     return (
@@ -111,6 +112,7 @@ const HomeScreen = () => {
                     renderItem={({item}) => (
                         <TouchableOpacity
                             style={styles.row}
+                            onPress={feedbackAlert}
                         >
                             <View style={styles.innerContainer}>
                                 <Text style={styles.itemHeading}>{item.name}</Text>
@@ -172,6 +174,10 @@ const styles = StyleSheet.create({
 
     },
     itemHeading:{
-        
+        fontWeight: 'bold',
+        fontSize: 18,
+    },
+    itemText:{
+        fontWeight: '300'
     }
 });
