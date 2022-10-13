@@ -1,13 +1,35 @@
-import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, Button, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, Button, TouchableOpacity, FlatList } from 'react-native'
+import React, {useState, useEffect} from 'react'
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
-import {useState} from 'react/cjs/react.development';
 import {db} from '../components/config'
 
 const HomeScreen = () => {
     const [storeName, setStoreName] = useState('');
     const [location, setLocation] = useState('');
+    // const [name, setName] = useState([]);
+    // const [loc, setLoc] = useState([]);
+    const [shop, setShop] = useState([]);
+    const shopRef = db.collection('stores');
+
+    useEffect( () => {
+        shopRef
+        .onSnapshot(
+            querySnapshot => {
+                const shops = []
+                querySnapshot.forEach((doc) => {
+                    const {name, location} = doc.data();
+                    shops.push({
+                        name,
+                        location,
+                    })
+                })
+                setShop(shops)
+            }
+        )
+    }, [])
+
+    let shops = [];
 
     function create(){
         // Add a new document in collection "cities"
@@ -23,11 +45,39 @@ const HomeScreen = () => {
             console.log("Document successfully written!");
         })
         .catch((error) => {
+            alert(error);
+            setStoreName('');
+            setLocation('');
             console.error("Error writing document: ", error);
         });
 
 
     }
+
+    // async function read(){
+    //     await db.collection("stores").get().then((querySnapshot) =>{
+    //         let shops = [];
+    //         querySnapshot.forEach((doc) => {
+    //             // console.log(`${doc.id} => ${doc.data()}`);
+    //             var name = doc.data().name;
+    //             setName(name);
+    //             var loc = doc.data().location;
+    //             setLoc(loc);
+    //             console.log(`${name} => ${loc}`);
+    //         });
+    //     });
+    // }
+
+    // read();
+
+    db.collection("stores").get().then((querySnapshot) =>{
+        
+        querySnapshot.forEach((doc) => {
+            shops.push({...doc.data(), id: doc.id});
+        });
+        console.log("Stores: ",shops);
+    })
+
 
     return (
     <SafeAreaView  style={tw`bg-white h-full`}>
@@ -53,8 +103,23 @@ const HomeScreen = () => {
             <View>
                 <Text style={tw`text-center text-xl font-semibold text-gray-500`}>Pending Stores</Text>
             </View>
-            <View style={[{width: '100%', height: '70%'}, tw`bg-gray-100`]}>
+            <View style={[{width: '100%', height: '70%', flex: 1}, tw``]}>
+                <FlatList
+                    style={{height: '100%'}}
+                    data={shop}
+                    numColumns={1}
+                    renderItem={({item}) => (
+                        <TouchableOpacity
+                            style={styles.row}
+                        >
+                            <View style={styles.innerContainer}>
+                                <Text style={styles.itemHeading}>{item.name}</Text>
+                                <Text style={styles.itemText}>{item.location}</Text>
+                            </View>
 
+                        </TouchableOpacity>
+                    )}
+                />
             </View>
             
 
@@ -93,5 +158,20 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    row:{
+        backgroundColor: '#e5e5e5',
+        padding: 15,
+        borderRadius: 15,
+        margin: 5,
+        marginHorizontal: 10,
+    },
+    innerContainer:{
+        alignItems: 'center',
+        flexDirection: 'column',
+
+    },
+    itemHeading:{
+        
     }
 });
