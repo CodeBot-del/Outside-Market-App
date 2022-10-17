@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native'
-import React from 'react'
+import React from 'react';
+import Swiper from 'react-native-swiper';
 
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
@@ -18,7 +19,19 @@ const ListScreen = () => {
             />
             
             <View style={[tw`bg-gray-100`,{top:-20, height: '80%'}]}>
-            <Text style={tw`p-2`}>This is the List stuff...</Text>
+                {/* PASS THE SWIPE VIEW */}
+            <Swiper showsButtons={false}>
+                <View>
+                    <Text>
+                        Accepted
+                    </Text>
+                </View>
+                <View>
+                    <Text>
+                        Rejected
+                    </Text>
+                </View>
+            </Swiper>
             </View>
             <NavOptions style={tw``}/>
         </View>
