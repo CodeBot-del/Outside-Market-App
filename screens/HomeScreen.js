@@ -75,6 +75,7 @@ const HomeScreen = () => {
     // }
 
     function deleteShop(shop) {
+        // prevent the default action
         shopRef.doc(shop.id).delete().then(()=> {
             alert('Store successfully deleted');
             console.log(shop.id);
@@ -138,18 +139,20 @@ const HomeScreen = () => {
                     data={shop}
                     numColumns={1}
                     renderItem={({item}) => (
-                        <TouchableOpacity
+                        <View
                             style={styles.row}
-                            onPress={feedbackAlert}
                             // onClick={setShopId(item.id)}
                         >
                             <View style={styles.innerContainer}>
                                 <Text style={styles.itemHeading}>{item.name}</Text> 
                                 <Text style={styles.itemText}>{item.location}</Text>
-                                <Icon type='antdesign' color='black' name='delete' onClick={deleteShop(item)}/>
                             </View>
+                            <TouchableOpacity style={styles.innerContainer2} onPress={()=>deleteShop(item)}>
+                            <Icon type='antdesign' color='black' name='delete'
+                    />
+                            </TouchableOpacity>
 
-                        </TouchableOpacity>
+                        </View>
                     )}
                 />
             </View>
@@ -202,6 +205,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
 
+    },
+    innerContainer2:{
+        alignItems: 'center',
+        flexDirection: 'column',
+        marginTop: 20,
     },
     itemHeading:{
         fontWeight: 'bold',
