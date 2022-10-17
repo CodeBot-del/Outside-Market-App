@@ -2,6 +2,7 @@ import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, Button, Touchabl
 import React, {useState, useEffect} from 'react'
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
+import FeedbackOptions from '../components/FeedbackOptions';
 import {db} from '../components/config'
 import {Icon} from 'react-native-elements';
 
@@ -64,16 +65,6 @@ const HomeScreen = () => {
 
     }
 
-    // function deleteDoc (id){
-    //     db.collection("stores").doc(id).delete().then(() => {
-    //         alert("Store successfully deleted!");
-    //         console.log(id);
-    //     }).catch((error) => {
-    //         alert(error);
-    //         console.error("Error removing document: ", error);
-    //     });
-    // }
-
     function deleteShop(shop) {
         // prevent the default action
         shopRef.doc(shop.id).delete().then(()=> {
@@ -84,31 +75,6 @@ const HomeScreen = () => {
         })
     }
     
-
-    // const feedbackAlert = () =>
-
-        
-
-    //     Alert.alert(
-    //     shop.name,
-    //     "Choose Feedback Recieved",
-    //     [
-    //         {
-    //         text: "Agreed",
-    //         onPress: () => console.log("Agreed pressed")
-    //         },
-    //         {
-    //         text: "Disagreed",
-    //         onPress: () => {
-    //             deleteShop(shop);
-    //         },
-    //         style: "cancel"
-    //         },
-    //         { text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" }
-    //     ]
-    // );
-
-
     return (
     <SafeAreaView  style={tw`bg-white h-full`}>
         <View style={tw`p-2 pl-4`}>
@@ -147,10 +113,11 @@ const HomeScreen = () => {
                                 <Text style={styles.itemHeading}>{item.name}</Text> 
                                 <Text style={styles.itemText}>{item.location}</Text>
                             </View>
-                            <TouchableOpacity style={styles.innerContainer2} onPress={()=>deleteShop(item)}>
+                            {/* <TouchableOpacity style={styles.innerContainer2} onPress={()=>deleteShop(item)}>
                             <Icon type='antdesign' color='black' name='delete'
-                    />
-                            </TouchableOpacity>
+                            />
+                            </TouchableOpacity> */}
+                            <FeedbackOptions />
 
                         </View>
                     )}
