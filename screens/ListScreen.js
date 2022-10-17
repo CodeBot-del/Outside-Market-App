@@ -73,13 +73,46 @@ const ListScreen = () => {
             <Swiper showsButtons={false} style={{}}>
                 <View style={{alignItems: 'center'}}>
                     <Text style={[tw`font-semibold text-xl`, {color: '#9a031e',}]}>
-                        Accepted
+                        Accepted Stores
                     </Text>
+                    <FlatList
+                    style={{height: '100%', width:'100%', }}
+                    data={agreedShop}
+                    numColumns={1}
+                    renderItem={({item}) => (
+                        <View
+                            style={styles.row}
+                            // onClick={setShopId(item.id)}
+                        >
+                            <View style={styles.innerContainer}>
+                                <Text style={styles.itemHeading}>{item.name}</Text> 
+                                <Text style={styles.itemText}>{item.location}</Text>
+                            </View>
+                            </View>
+                    )}
+                />
+
                 </View>
                 <View style={{alignItems: 'center'}}>
                     <Text style={[tw`text-xl font-semibold`, {color: '#9a031e'}]}>
-                        Rejected
+                        Rejected Stores
                     </Text>
+                    <FlatList
+                    style={{height: '100%', width:'100%', }}
+                    data={rejectedShop}
+                    numColumns={1}
+                    renderItem={({item}) => (
+                        <View
+                            style={styles.row}
+                            // onClick={setShopId(item.id)}
+                        >
+                            <View style={styles.innerContainer}>
+                                <Text style={styles.itemHeading}>{item.name}</Text> 
+                                <Text style={styles.itemText}>{item.location}</Text>
+                            </View>
+                            </View>
+                    )}
+                />
                 </View>
             </Swiper>
             </View>
@@ -91,4 +124,25 @@ const ListScreen = () => {
 
 export default ListScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    row:{
+        backgroundColor: '#e5e5e5',
+        padding: 15,
+        borderRadius: 15,
+        margin: 5,
+        marginHorizontal: 10,
+        width:'90%'
+    },
+    innerContainer:{
+        alignItems: 'center',
+        flexDirection: 'column',
+
+    },
+    itemHeading:{
+        fontWeight: 'bold',
+        fontSize: 18,
+    },
+    itemText:{
+        fontWeight: '300'
+    }
+})

@@ -140,18 +140,6 @@ const HomeScreen = () => {
                 alert('Store already exists in agreed list');
             }
         })
-
-    //     // then add the shop to agreed
-    //     agreeRef.add({
-    //         name: shop.name,
-    //         location: shop.location,
-    //     })
-    //     .then(() => {
-    //         alert('Store saved as agreed');
-    //         console.log("Document successfully written!");
-    //     }).catch(error => {
-    //         alert(error);
-    //     })
     }
     
     return (
