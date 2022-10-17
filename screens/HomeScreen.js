@@ -68,11 +68,18 @@ const HomeScreen = () => {
     function deleteShop(shop) {
         // prevent the default action
         shopRef.doc(shop.id).delete().then(()=> {
-            alert('Store successfully deleted');
             console.log(shop.id);
         }).catch(error => {
             alert(error);
         })
+    }
+
+    function reject(shop) {
+        console.log("Reject shop pressed")
+    }
+
+    function agree(shop) {
+        console.log("agree shop pressed")
     }
     
     return (
@@ -113,11 +120,23 @@ const HomeScreen = () => {
                                 <Text style={styles.itemHeading}>{item.name}</Text> 
                                 <Text style={styles.itemText}>{item.location}</Text>
                             </View>
-                            {/* <TouchableOpacity style={styles.innerContainer2} onPress={()=>deleteShop(item)}>
-                            <Icon type='antdesign' color='black' name='delete'
-                            />
-                            </TouchableOpacity> */}
-                            <FeedbackOptions />
+                            <View style={[{flexDirection:"row"}, tw`pl-6`]}>
+                                <TouchableOpacity style={[styles.innerContainer2, tw`ml-10`]} onPress={()=>reject(item)}>
+                                    <Icon type='ionicon' color='#d62828' name='thumbs-down-sharp'
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.innerContainer2, tw`ml-10`]} onPress={()=>agree(item)}>
+                                    <Icon type='ionicon' color='green' name='thumbs-up-sharp'
+                                    /> 
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.innerContainer2, tw`ml-10`]} onPress={()=>deleteShop(item)}>
+                                    <Icon type='ionicon' color='red' name='trash-outline'
+                                    /> 
+                                </TouchableOpacity>
+                            </View>
+                            
+
+                            {/* <FeedbackOptions /> */}
 
                         </View>
                     )}

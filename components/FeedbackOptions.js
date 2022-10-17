@@ -5,30 +5,36 @@ import {Icon} from 'react-native-elements';
 import {db} from './config'; 
 
 
-const data = [
-    {
-        id: "123",
-        icon:'thumbs-down-sharp',
-        color: '#d62828',
-        function: 'reject',
-    },
-    {
-        id:'456',
-        icon:'thumbs-up-sharp',
-        color: 'green',
-        function: 'agree',
-    },
-    {
-        id:'789',
-        icon:'trash-outline',
-        color: 'red',
-        function: 'deleteShop',
-    }
-];
+
 
 const FeedbackOptions = () => {
     const shopRef = db.collection('stores');
     const [shop, setShop] = useState([]);
+    const data = [
+        {
+            id: '123',
+            icon:'thumbs-down-sharp',
+            color: '#d62828',
+            function: 'reject',
+            shop: {shop},
+        },
+        {
+            id:'456',
+            icon:'thumbs-up-sharp',
+            color: 'green',
+            function: 'agree',
+            shop: {shop},
+        },
+        {
+            id:'789',
+            icon:'trash-outline',
+            color: 'red',
+            function: 'delete',
+            shop: {shop},
+        }
+    ];
+
+    
     
     useEffect( () => {
         shopRef
@@ -75,7 +81,12 @@ const FeedbackOptions = () => {
         horizontal
         renderItem={({item}) => (
             <TouchableOpacity 
-            // onPress={()=>}
+            onPress={()=>{
+                // check if item.function is delete
+                if(item.function === 'delete'){
+                    deleteShop(item.shop);
+                }
+            }}
             style={[tw`ml-12`, {justifyContent: 'center'}]}>
                 <View style={tw``}>
                     <Icon 
