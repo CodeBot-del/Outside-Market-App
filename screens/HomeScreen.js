@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react'
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
 import {db} from '../components/config'
+import {Icon} from 'react-native-elements';
+
 
 const HomeScreen = () => {
     const [storeName, setStoreName] = useState('');
@@ -72,7 +74,7 @@ const HomeScreen = () => {
     //     });
     // }
 
-    const deleteShop =  (shop) =>{
+    function deleteShop(shop) {
         shopRef.doc(shop.id).delete().then(()=> {
             alert('Store successfully deleted');
             console.log(shop.id);
@@ -82,28 +84,28 @@ const HomeScreen = () => {
     }
     
 
-    const feedbackAlert = () =>
+    // const feedbackAlert = () =>
 
         
 
-        Alert.alert(
-        shop.name,
-        "Choose Feedback Recieved",
-        [
-            {
-            text: "Agreed",
-            onPress: () => console.log("Agreed pressed")
-            },
-            {
-            text: "Disagreed",
-            onPress: () => {
-                deleteShop(shop);
-            },
-            style: "cancel"
-            },
-            { text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" }
-        ]
-    );
+    //     Alert.alert(
+    //     shop.name,
+    //     "Choose Feedback Recieved",
+    //     [
+    //         {
+    //         text: "Agreed",
+    //         onPress: () => console.log("Agreed pressed")
+    //         },
+    //         {
+    //         text: "Disagreed",
+    //         onPress: () => {
+    //             deleteShop(shop);
+    //         },
+    //         style: "cancel"
+    //         },
+    //         { text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" }
+    //     ]
+    // );
 
 
     return (
@@ -142,8 +144,9 @@ const HomeScreen = () => {
                             // onClick={setShopId(item.id)}
                         >
                             <View style={styles.innerContainer}>
-                                <Text style={styles.itemHeading}>{item.id}</Text>
+                                <Text style={styles.itemHeading}>{item.name}</Text> 
                                 <Text style={styles.itemText}>{item.location}</Text>
+                                <Icon type='antdesign' color='black' name='delete' onClick={deleteShop(item)}/>
                             </View>
 
                         </TouchableOpacity>
