@@ -11,6 +11,49 @@ const ListScreen = () => {
 
     const [agreedShop, setAgreedShop] = useState([]);
     const [rejectedShop, setRejectedShop] = useState([]);
+    const agreeRef = db.collection('agreed');
+    const rejectRef = db.collection('rejected');
+
+    function rejected () {
+        rejectRef
+        .onSnapshot(
+            querySnapshot => {
+                const shops = []
+                querySnapshot.forEach((doc) => {
+                    const {name, location} = doc.data();
+                    shops.push({
+                        id: doc.id,
+                        name,
+                        location,
+                    })
+                })
+                setRejectedShop(shops)
+            }
+        )
+    }
+
+    function agreed () {
+        agreeRef
+        .onSnapshot(
+            querySnapshot => {
+                const shops = []
+                querySnapshot.forEach((doc) => {
+                    const {name, location} = doc.data();
+                    shops.push({
+                        id: doc.id,
+                        name,
+                        location,
+                    })
+                })
+                setAgreedShop(shops)
+            }
+        )
+    }
+
+    useEffect( () => {
+        rejected();
+        agreed();
+    },[]);
 
 
   return (
