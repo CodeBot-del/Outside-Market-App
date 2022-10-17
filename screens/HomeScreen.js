@@ -11,6 +11,7 @@ const HomeScreen = () => {
     // const [loc, setLoc] = useState([]);
     const [shop, setShop] = useState([]);
     const shopRef = db.collection('stores');
+    const [shopId, setShopId] = useState('');
 
     useEffect( () => {
         shopRef
@@ -60,8 +61,31 @@ const HomeScreen = () => {
 
 
     }
+
+    // function deleteDoc (id){
+    //     db.collection("stores").doc(id).delete().then(() => {
+    //         alert("Store successfully deleted!");
+    //         console.log(id);
+    //     }).catch((error) => {
+    //         alert(error);
+    //         console.error("Error removing document: ", error);
+    //     });
+    // }
+
+    const deleteShop =  (shop) =>{
+        shopRef.doc(shop.id).delete().then(()=> {
+            alert('Store successfully deleted');
+            console.log(shop.id);
+        }).catch(error => {
+            alert(error);
+        })
+    }
     
+
     const feedbackAlert = () =>
+
+        
+
         Alert.alert(
         shop.name,
         "Choose Feedback Recieved",
@@ -72,7 +96,9 @@ const HomeScreen = () => {
             },
             {
             text: "Disagreed",
-            onPress: () => console.log("Disagreed Pressed"),
+            onPress: () => {
+                deleteShop();
+            },
             style: "cancel"
             },
             { text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" }
@@ -113,6 +139,7 @@ const HomeScreen = () => {
                         <TouchableOpacity
                             style={styles.row}
                             onPress={feedbackAlert}
+                            onClick={setShopId(item.id)}
                         >
                             <View style={styles.innerContainer}>
                                 <Text style={styles.itemHeading}>{item.name}</Text>
