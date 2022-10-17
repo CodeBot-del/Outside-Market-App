@@ -49,7 +49,7 @@ const HomeScreen = () => {
                 location: location,
             })
             .then(() => {
-                alert('Store added successfully');
+                // alert('Store added successfully');
                 // set states to empty
                 setStoreName('');
                 setLocation('');
@@ -84,17 +84,35 @@ const HomeScreen = () => {
             alert(error);
         })
 
+        // check if store already exists in the rejected collection
+        rejectRef.where('name', '==', shop.name).get().then((querySnapshot) => {
+            if(querySnapshot.empty){
+                // add the store to the rejected collection
+                rejectRef.add({
+                    name: shop.name,
+                    location: shop.location,
+                }).then(() => {
+                    alert('Store saved as rejected');
+                    console.log('Store saved as rejected');
+                }).catch(error => {
+                    alert(error);
+                })
+            }else{
+                alert('Store already exists in reject list');
+            }
+        })
+
         // then add the shop to rejected
-        rejectRef.add({
-            name: shop.name,
-            location: shop.location,
-        })
-        .then(() => {
-            alert('Store saved as rejected');
-            console.log("Document successfully written!");
-        }).catch(error => {
-            alert(error);
-        })
+        // rejectRef.add({
+        //     name: shop.name,
+        //     location: shop.location,
+        // })
+        // .then(() => {
+        //     alert('Store saved as rejected');
+        //     console.log("Document successfully written!");
+        // }).catch(error => {
+        //     alert(error);
+        // })
     }
 
     function agree(shop) {
@@ -105,17 +123,35 @@ const HomeScreen = () => {
             alert(error);
         })
 
-        // then add the shop to agreed
-        agreeRef.add({
-            name: shop.name,
-            location: shop.location,
+        // check if store already exists in the agreed collection
+        agreeRef.where('name', '==', shop.name).get().then((querySnapshot) => {
+            if(querySnapshot.empty){
+                agreeRef.add({
+                    name: shop.name,
+                    location: shop.location,
+                })
+                .then(() => {
+                    alert('Store saved as agreed');
+                    console.log("Document successfully written!");
+                }).catch(error => {
+                    alert(error);
+                })
+            }else{
+                alert('Store already exists in agreed list');
+            }
         })
-        .then(() => {
-            alert('Store saved as agreed');
-            console.log("Document successfully written!");
-        }).catch(error => {
-            alert(error);
-        })
+
+    //     // then add the shop to agreed
+    //     agreeRef.add({
+    //         name: shop.name,
+    //         location: shop.location,
+    //     })
+    //     .then(() => {
+    //         alert('Store saved as agreed');
+    //         console.log("Document successfully written!");
+    //     }).catch(error => {
+    //         alert(error);
+    //     })
     }
     
     return (
