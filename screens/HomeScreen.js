@@ -97,7 +97,7 @@ const HomeScreen = () => {
             {
             text: "Disagreed",
             onPress: () => {
-                deleteShop();
+                deleteShop(shop);
             },
             style: "cancel"
             },
@@ -139,10 +139,10 @@ const HomeScreen = () => {
                         <TouchableOpacity
                             style={styles.row}
                             onPress={feedbackAlert}
-                            onClick={setShopId(item.id)}
+                            // onClick={setShopId(item.id)}
                         >
                             <View style={styles.innerContainer}>
-                                <Text style={styles.itemHeading}>{item.name}</Text>
+                                <Text style={styles.itemHeading}>{item.id}</Text>
                                 <Text style={styles.itemText}>{item.location}</Text>
                             </View>
 
