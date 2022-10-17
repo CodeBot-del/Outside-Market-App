@@ -14,6 +14,8 @@ const HomeScreen = () => {
     // const [loc, setLoc] = useState([]);
     const [shop, setShop] = useState([]);
     const shopRef = db.collection('stores');
+    const agreeRef = db.collection('agreed');
+    const rejectRef = db.collection('rejected');
     const [shopId, setShopId] = useState('');
 
     useEffect( () => {
@@ -75,11 +77,45 @@ const HomeScreen = () => {
     }
 
     function reject(shop) {
-        console.log("Reject shop pressed")
+        // first delete the shop from stores
+        shopRef.doc(shop.id).delete().then(()=> {
+            console.log(shop.id);
+        }).catch(error => {
+            alert(error);
+        })
+
+        // then add the shop to rejected
+        rejectRef.add({
+            name: shop.name,
+            location: shop.location,
+        })
+        .then(() => {
+            alert('Store saved as rejected');
+            console.log("Document successfully written!");
+        }).catch(error => {
+            alert(error);
+        })
     }
 
     function agree(shop) {
-        console.log("agree shop pressed")
+        // first delete the shop from stores
+        shopRef.doc(shop.id).delete().then(()=> {
+            console.log(shop.id);
+        }).catch(error => {
+            alert(error);
+        })
+
+        // then add the shop to agreed
+        agreeRef.add({
+            name: shop.name,
+            location: shop.location,
+        })
+        .then(() => {
+            alert('Store saved as agreed');
+            console.log("Document successfully written!");
+        }).catch(error => {
+            alert(error);
+        })
     }
     
     return (
