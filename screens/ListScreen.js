@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native'
-import React from 'react';
+import { StyleSheet, Text, View, SafeAreaView, Image, FlatList } from 'react-native'
+import React, {useState, useEffect} from 'react';
 import Swiper from 'react-native-swiper';
+import {db} from '../components/config'
+import {Icon} from 'react-native-elements';
 
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
 
 const ListScreen = () => {
+
+    const [agreedShop, setAgreedShop] = useState([]);
+    const [rejectedShop, setRejectedShop] = useState([]);
+
+
   return (
     <SafeAreaView  style={tw`bg-white h-full`}>
         <View style={tw`p-2 pl-4`}>
@@ -18,16 +25,16 @@ const ListScreen = () => {
                 }
             />
             
-            <View style={[tw`bg-gray-100`,{top:-20, height: '80%'}]}>
+            <View style={[tw``,{top:-20, height: '80%'}]}>
                 {/* PASS THE SWIPE VIEW */}
-            <Swiper showsButtons={false}>
-                <View>
-                    <Text>
+            <Swiper showsButtons={false} style={{}}>
+                <View style={{alignItems: 'center'}}>
+                    <Text style={[tw`font-semibold text-xl`, {color: '#9a031e',}]}>
                         Accepted
                     </Text>
                 </View>
-                <View>
-                    <Text>
+                <View style={{alignItems: 'center'}}>
+                    <Text style={[tw`text-xl font-semibold`, {color: '#9a031e'}]}>
                         Rejected
                     </Text>
                 </View>
