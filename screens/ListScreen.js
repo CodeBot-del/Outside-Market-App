@@ -56,6 +56,20 @@ const ListScreen = () => {
         agreed();
     },[]);
 
+    function deleteCollection(path){
+        // Get a new write batch
+        var batch = db.batch()
+    
+        db.collection(path).listDocuments().then(val => {
+            val.map((val) => {
+                batch.delete(val)
+            })
+    
+            batch.commit()
+        })
+        console.log('All docs deleted')
+    }
+
 
   return (
     <SafeAreaView  style={tw`bg-white h-full`}>
@@ -101,7 +115,7 @@ const ListScreen = () => {
                     </Text>
                     <FloatButton/>
                     <FlatList
-                    style={{height: '100%', width:'100%', }}
+                    style={{height: '60%', width:'100%',top:'-10%' }}
                     data={rejectedShop}
                     numColumns={1}
                     renderItem={({item}) => (
