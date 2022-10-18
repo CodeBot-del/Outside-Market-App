@@ -2,7 +2,6 @@ import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, Button, Touchabl
 import React, {useState, useEffect} from 'react'
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
-import FeedbackOptions from '../components/FeedbackOptions';
 import {db} from '../components/config'
 import {Icon} from 'react-native-elements';
 
@@ -102,17 +101,6 @@ const HomeScreen = () => {
             }
         })
 
-        // then add the shop to rejected
-        // rejectRef.add({
-        //     name: shop.name,
-        //     location: shop.location,
-        // })
-        // .then(() => {
-        //     alert('Store saved as rejected');
-        //     console.log("Document successfully written!");
-        // }).catch(error => {
-        //     alert(error);
-        // })
     }
 
     function agree(shop) {

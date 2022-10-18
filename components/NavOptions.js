@@ -35,7 +35,7 @@ const NavOptions = () => {
   return (
     
     <FlatList
-        style={[tw`bg-white h-12`,{position: 'relative',}]}
+        style={[tw`h-12`,{position: 'relative',}]}
         data={data}
         keyExtractor={(item) => item.id}
         horizontal

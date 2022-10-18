@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, FlatList } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, FlatList, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect} from 'react';
 import Swiper from 'react-native-swiper';
 import {db} from '../components/config'
 import {Icon} from 'react-native-elements';
+import FloatButton from '../components/FloatButton';
 
 import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
@@ -68,15 +69,16 @@ const ListScreen = () => {
                 }
             />
             
-            <View style={[tw``,{top:-20, height: '80%'}]}>
+            <View style={[tw`bg-white`,{top:-10, height: '80%'}]}>
                 {/* PASS THE SWIPE VIEW */}
             <Swiper showsButtons={false} style={{}}>
-                <View style={{alignItems: 'center'}}>
+                <View style={[{alignItems: 'center', height:'92%'}, tw``]}>
                     <Text style={[tw`font-semibold text-xl`, {color: '#9a031e',}]}>
                         Accepted Stores
                     </Text>
+                    <FloatButton/>
                     <FlatList
-                    style={{height: '100%', width:'100%', }}
+                    style={{height: '60%', width:'100%',top:'-10%' }}
                     data={agreedShop}
                     numColumns={1}
                     renderItem={({item}) => (
@@ -93,10 +95,11 @@ const ListScreen = () => {
                 />
 
                 </View>
-                <View style={{alignItems: 'center'}}>
+                <View style={[{alignItems: 'center', height:'92%'}, tw``]}>
                     <Text style={[tw`text-xl font-semibold`, {color: '#9a031e'}]}>
                         Rejected Stores
                     </Text>
+                    <FloatButton/>
                     <FlatList
                     style={{height: '100%', width:'100%', }}
                     data={rejectedShop}
