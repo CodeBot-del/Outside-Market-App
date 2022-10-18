@@ -5,7 +5,10 @@ import {Icon} from 'react-native-elements';
 
 const FloatButton = () => {
   return (
-    <TouchableOpacity style={[tw`rounded-full p-3`,{top:'90%', zIndex: 999999, width:50, left:'40%', backgroundColor:'#d90429'}]}>
+    <TouchableOpacity 
+        style={[tw`rounded-full p-3`,{top:'90%', zIndex: 999999, width:50, left:'40%', backgroundColor:'#d90429'}]}
+        onPress={()=> {console.log('pressed')}}
+    >
         <Icon type='ionicon' color='white' name='trash-outline'
         /> 
     </TouchableOpacity>

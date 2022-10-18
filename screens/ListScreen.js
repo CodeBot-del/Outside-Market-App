@@ -56,18 +56,30 @@ const ListScreen = () => {
         agreed();
     },[]);
 
-    function deleteCollection(path){
+    function deleteCollection(){
+
+        
         // Get a new write batch
-        var batch = db.batch()
+
+        // var batch = db.batch()
     
-        db.collection(path).listDocuments().then(val => {
-            val.map((val) => {
-                batch.delete(val)
-            })
+        // db.collection(path).listDocuments().then(val => {
+        //     val.map((val) => {
+        //         batch.delete(val)
+        //     })
     
-            batch.commit()
+        //     batch.commit()
+        //     alert('Stores cleared successfully')
+        //     console.log('All docs deleted')
+        // })
+
+            db.collection('agreed').delete().then(()=> {
+            console.log(shop.id);
+            alert('Stores cleared successfully');
+        }).catch(error => {
+            alert(error);
         })
-        console.log('All docs deleted')
+        
     }
 
 
@@ -90,7 +102,13 @@ const ListScreen = () => {
                     <Text style={[tw`font-semibold text-xl`, {color: '#9a031e',}]}>
                         Accepted Stores
                     </Text>
-                    <FloatButton/>
+                    <TouchableOpacity 
+                        style={[tw`rounded-full p-3`,{top:'90%', zIndex: 999999, width:50, left:'40%', backgroundColor:'#d90429'}]}
+                        onPress={()=> deleteCollection()}
+                    >
+                        <Icon type='ionicon' color='white' name='trash-outline'
+                        /> 
+                    </TouchableOpacity>
                     <FlatList
                     style={{height: '60%', width:'100%',top:'-10%' }}
                     data={agreedShop}
@@ -104,7 +122,7 @@ const ListScreen = () => {
                                 <Text style={styles.itemHeading}>{item.name}</Text> 
                                 <Text style={styles.itemText}>{item.location}</Text>
                             </View>
-                            </View>
+                        </View>
                     )}
                 />
 
@@ -113,7 +131,13 @@ const ListScreen = () => {
                     <Text style={[tw`text-xl font-semibold`, {color: '#9a031e'}]}>
                         Rejected Stores
                     </Text>
-                    <FloatButton/>
+                    <TouchableOpacity 
+                        style={[tw`rounded-full p-3`,{top:'90%', zIndex: 999999, width:50, left:'40%', backgroundColor:'#d90429'}]}
+                        onPress={()=> {console.log('pressed')}}
+                    >
+                        <Icon type='ionicon' color='white' name='trash-outline'
+                        /> 
+                    </TouchableOpacity>
                     <FlatList
                     style={{height: '60%', width:'100%',top:'-10%' }}
                     data={rejectedShop}
