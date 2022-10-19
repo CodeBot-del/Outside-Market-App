@@ -65,6 +65,15 @@ const ListScreen = () => {
         })
     }
 
+    function deleteRejected(rejectedShop) {
+        // prevent the default action
+        rejectRef.doc(rejectedShop.id).delete().then(()=> {
+            console.log(rejectedShop.id);
+        }).catch(error => {
+            alert(error);
+        })
+    }
+
 
   return (
     <SafeAreaView  style={tw`bg-white h-full`}>
@@ -99,8 +108,8 @@ const ListScreen = () => {
                                 <Text style={styles.itemHeading}>{item.name}</Text> 
                                 <Text style={styles.itemText}>{item.location}</Text>
                             </View>
-                            <View style={[{flexDirection:"row"}, tw`pl-6`]}>
-                                <TouchableOpacity style={[styles.innerContainer2, tw`ml-10`]} onPress={()=>deleteAgreed(item)}>
+                            <View style={[{}, tw` flex-row justify-center`]}>
+                                <TouchableOpacity style={[styles.innerContainer2, tw`mt-2`]} onPress={()=>deleteAgreed(item)}>
                                     <Icon type='ionicon' color='red' name='trash-outline'
                                     /> 
                                 </TouchableOpacity>
@@ -114,15 +123,9 @@ const ListScreen = () => {
                     <Text style={[tw`text-xl font-semibold`, {color: '#9a031e'}]}>
                         Rejected Stores
                     </Text>
-                    <TouchableOpacity 
-                        style={[tw`rounded-full p-3`,{top:'90%', zIndex: 999999, width:50, left:'40%', backgroundColor:'#d90429'}]}
-                        onPress={()=> {console.log('pressed')}}
-                    >
-                        <Icon type='ionicon' color='white' name='trash-outline'
-                        /> 
-                    </TouchableOpacity>
+                    
                     <FlatList
-                    style={{height: '60%', width:'100%',top:'-10%' }}
+                    style={{height: '60%', width:'100%',}}
                     data={rejectedShop}
                     numColumns={1}
                     renderItem={({item}) => (
@@ -134,7 +137,13 @@ const ListScreen = () => {
                                 <Text style={styles.itemHeading}>{item.name}</Text> 
                                 <Text style={styles.itemText}>{item.location}</Text>
                             </View>
+                            <View style={[{}, tw` flex-row justify-center`]}>
+                                <TouchableOpacity style={[styles.innerContainer2, tw`mt-2`]} onPress={()=>deleteRejected(item)}>
+                                    <Icon type='ionicon' color='red' name='trash-outline'
+                                    /> 
+                                </TouchableOpacity>
                             </View>
+                        </View>
                     )}
                 />
                 </View>
