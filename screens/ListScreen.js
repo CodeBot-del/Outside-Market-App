@@ -56,30 +56,13 @@ const ListScreen = () => {
         agreed();
     },[]);
 
-    function deleteCollection(){
-
-        
-        // Get a new write batch
-
-        // var batch = db.batch()
-    
-        // db.collection(path).listDocuments().then(val => {
-        //     val.map((val) => {
-        //         batch.delete(val)
-        //     })
-    
-        //     batch.commit()
-        //     alert('Stores cleared successfully')
-        //     console.log('All docs deleted')
-        // })
-
-            db.collection('agreed').delete().then(()=> {
-            console.log(shop.id);
-            alert('Stores cleared successfully');
+    function deleteAgreed(agreedShop) {
+        // prevent the default action
+        agreeRef.doc(agreedShop.id).delete().then(()=> {
+            console.log(agreedShop.id);
         }).catch(error => {
             alert(error);
         })
-        
     }
 
 
@@ -102,15 +85,9 @@ const ListScreen = () => {
                     <Text style={[tw`font-semibold text-xl`, {color: '#9a031e',}]}>
                         Accepted Stores
                     </Text>
-                    <TouchableOpacity 
-                        style={[tw`rounded-full p-3`,{top:'90%', zIndex: 999999, width:50, left:'40%', backgroundColor:'#d90429'}]}
-                        onPress={()=> deleteCollection()}
-                    >
-                        <Icon type='ionicon' color='white' name='trash-outline'
-                        /> 
-                    </TouchableOpacity>
+                    
                     <FlatList
-                    style={{height: '60%', width:'100%',top:'-10%' }}
+                    style={{height: '60%', width:'100%', }}
                     data={agreedShop}
                     numColumns={1}
                     renderItem={({item}) => (
@@ -121,6 +98,12 @@ const ListScreen = () => {
                             <View style={styles.innerContainer}>
                                 <Text style={styles.itemHeading}>{item.name}</Text> 
                                 <Text style={styles.itemText}>{item.location}</Text>
+                            </View>
+                            <View style={[{flexDirection:"row"}, tw`pl-6`]}>
+                                <TouchableOpacity style={[styles.innerContainer2, tw`ml-10`]} onPress={()=>deleteAgreed(item)}>
+                                    <Icon type='ionicon' color='red' name='trash-outline'
+                                    /> 
+                                </TouchableOpacity>
                             </View>
                         </View>
                     )}
