@@ -44,12 +44,7 @@ const NavOptions = () => {
             onPress={()=>navigation.navigate(item.screen)}
             style={[tw`ml-16`, {justifyContent: 'center'}]}>
                 <View style={tw``}>
-                    {/* <Image 
-                    style={{width: 30, height: 30, resizeMode: 'contain'}}
-                    source={{
-                        uri: item.image
-                    }}
-                    /> */}
+                    
                     <Icon 
                         type='antdesign'
                         color='black'
