@@ -1,4 +1,4 @@
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import React from 'react'
 import tw from 'tailwind-react-native-classnames';
 import {Icon} from 'react-native-elements';
@@ -33,29 +33,40 @@ const NavOptions = () => {
     const navigation = useNavigation();
 
   return (
-    
-    <FlatList
-        style={[tw`h-12`,{position: 'relative',}]}
-        data={data}
-        keyExtractor={(item) => item.id}
-        horizontal
-        renderItem={({item}) => (
-            <TouchableOpacity 
-            onPress={()=>navigation.navigate(item.screen)}
-            style={[tw`ml-16`, {justifyContent: 'center'}]}>
-                <View style={tw``}>
-                    
-                    <Icon 
-                        type='antdesign'
-                        color='black'
-                        name={item.icon}
-                    />
-                </View>
-            </TouchableOpacity>
-        )}
-    />
+    <View  style={[tw`h-12`,{position: 'relative', alignItems: 'center', justifyContent: 'space-between',}]}>
+
+        <FlatList
+            style={[tw``,{position: 'relative',}]}
+            data={data}
+            keyExtractor={(item) => item.id}
+            horizontal
+            renderItem={({item}) => (
+                <TouchableOpacity 
+                onPress={()=>navigation.navigate(item.screen)}
+                style={[tw``, {justifyContent: 'center', alignItems: 'center',}]}>
+                    <View style={[tw``, styles.container]}>
+                        
+                        <Icon 
+                            type='antdesign'
+                            color='black'
+                            name={item.icon}
+                            style={[ tw`bg-white rounded-full p-2`]}
+                        />
+                    </View>
+                </TouchableOpacity>
+            )}
+        />
+    </View>
     
   )
 }
 
 export default NavOptions
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'relative',
+        width: 110,
+    }
+})
