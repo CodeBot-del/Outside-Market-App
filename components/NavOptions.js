@@ -33,7 +33,7 @@ const NavOptions = () => {
     const navigation = useNavigation();
 
   return (
-    <View  style={[tw`h-12`,{position: 'relative', alignItems: 'center', justifyContent: 'space-between',}]}>
+    <View  style={[tw`h-12`,{position: 'absolute', alignItems: 'center', justifyContent: 'space-between',top: '95%', left: "5%"}]}>
 
         <FlatList
             style={[tw``,{position: 'relative',}]}
@@ -50,7 +50,7 @@ const NavOptions = () => {
                             type='antdesign'
                             color='black'
                             name={item.icon}
-                            style={[ tw`bg-white rounded-full p-2`]}
+                            style={[ tw``]}
                         />
                     </View>
                 </TouchableOpacity>

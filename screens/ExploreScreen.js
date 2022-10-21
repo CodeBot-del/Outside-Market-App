@@ -21,7 +21,7 @@ const ExploreScreen = () => {
             <View style={[tw`bg-white`,{top:-20, height: '80%'}]}>
               <WebView
             style={{top:0, 
-                    height: 600,
+                    height: '100%',
                     width: '100%'
                   }}
             source={{ uri: 'https://www.google.com/maps/' }}
